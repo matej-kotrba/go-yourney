@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 	g "github.com/matej-kotrba/go-testing/src/game"
 	p "github.com/matej-kotrba/go-testing/src/player"
@@ -36,7 +38,7 @@ func main() {
 	player.AreaX = 1
 	player.AreaY = 1
 
-	rl.InitWindow(int32(window.Width), int32(window.Height), "raylib [core] example - basic window")
+	rl.InitWindow(int32(window.Width), int32(window.Height), "Fun with go")
 	defer rl.CloseWindow()
 
 	rl.SetTargetFPS(60)
@@ -66,6 +68,10 @@ func main() {
 
 		rl.ClearBackground(rl.Black)
 		rl.DrawRectangle(int32(x), int32(y), int32(player.W), int32(player.H), rl.Green);
+
+		text := fmt.Sprintf("Area x: %v y: %v", player.AreaX, player.AreaY)
+
+		rl.DrawText(text, 10, 10, 20, rl.White);
 
 		rl.EndDrawing()
 	}

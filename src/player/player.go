@@ -31,27 +31,31 @@ func (p *Player) Move(gameAreas [][]ga.GameArea, window ga.Window, moveX float32
 		}
 
 	if (p.X < 0) {
-			if (p.AreaX - 1 > 0 && gameAreas[p.AreaY][p.AreaX - 1].IsActive) {
+			if (p.AreaX - 1 >= 0 && gameAreas[p.AreaY][p.AreaX - 1].IsActive) {
 				p.AreaX -= 1;
+				p.X = float32(window.Width - p.W)
 			} else {
 				p.SetPos(0, p.Y)
 			}
 		} else if (p.AreaX + 1 > 0 && p.X + float32(p.W) > float32(window.Width)) {
 			if (gameAreas[p.AreaY][p.AreaX + 1].IsActive) {
 				p.AreaX += 1
+				p.X = 0
 			} else {
 				p.X = float32(window.Width) - float32(p.W)
 			}
 		}
 		if (p.Y < 0) {
-			if (p.AreaY - 1 > 0 && gameAreas[p.AreaY - 1][p.AreaX].IsActive) {
+			if (p.AreaY - 1 >= 0 && gameAreas[p.AreaY - 1][p.AreaX].IsActive) {
 				p.AreaY -= 1;
+				p.Y = float32(window.Height - p.H)
 			} else {
 				p.SetPos(p.X, 0)
 			}
 		} else if (p.Y + float32(p.H) > float32(window.Height)) {
 			if (p.AreaY + 1 > 0 && gameAreas[p.AreaY + 1][p.AreaX].IsActive) {
 				p.AreaY += 1
+				p.Y = 0
 			} else {
 				p.Y = float32(window.Height) - float32(p.H)
 			}
