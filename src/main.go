@@ -5,6 +5,7 @@ import (
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 	g "github.com/matej-kotrba/go-testing/src/game"
+	m "github.com/matej-kotrba/go-testing/src/magic"
 	p "github.com/matej-kotrba/go-testing/src/player"
 )
 
@@ -19,6 +20,7 @@ var moveX int16 = 0;
 var moveY int16 = 0;
 
 func main() {
+	rl.InitWindow(int32(window.Width), int32(window.Height), "Fun with go")
 	var gameAreas = make([][]g.GameArea, 10)
 	for i := 0; i < len(gameAreas); i++ {
 		gameAreas[i] = make([]g.GameArea, 10)
@@ -38,16 +40,20 @@ func main() {
 	player.AreaX = 1
 	player.AreaY = 1
 	player.Image = rl.LoadImage("static/imgs/seal-king.png")
-	rl.ImageResize(player.Image, 200, 200)
+	rl.ImageResize(player.Image, int32(player.W), int32(player.H))
 	player.Texture = rl.LoadTextureFromImage(player.Image)
-	rl.UnloadImage(player.Image)
 
-	rl.InitWindow(int32(window.Width), int32(window.Height), "Fun with go")
+	var draw = m.Draw{
+		Color: rl.NewColor(255, 255, 255, 255),
+	}
+
 	defer rl.CloseWindow()
 
 	rl.SetTargetFPS(60)
 
 	for !rl.WindowShouldClose() {
+		
+		// On key down
 		if (rl.IsKeyDown(rl.KeyRight) || rl.IsKeyDown(rl.KeyD)) {
 			moveX += MOVE_SPEED;
 		}
@@ -59,6 +65,14 @@ func main() {
 		}
 		if (rl.IsKeyDown(rl.KeyUp) || rl.IsKeyDown(rl.KeyW)) {
 			moveY -= MOVE_SPEED;
+		}
+
+		// On mouse down
+		if (rl.IsMouseButtonDown(rl.MouseLeftButton)) {
+			if (!draw.IsDrawing) {
+				draw.IsDrawing = true
+				draw.DrawedPattern = append(draw.DrawedPattern, m.DrawPoint{X: int16(rl.GetMouseX()), Y: int16(rl.GetMouseY())})
+			}
 		}
 
 		player.Move(gameAreas, window, float32(moveX), float32(moveY))

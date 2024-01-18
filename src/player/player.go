@@ -20,7 +20,8 @@ type Player struct {
 }
 
 func (p *Player) Render() {
-	// rl.DrawTexture(p.Texture, int32(p.X), int32(p.Y), rl.White)
+	rl.ImageResize(p.Image, int32(p.W), int32(p.H))
+	rl.DrawTexture(p.Texture, int32(p.X), int32(p.Y), rl.White)
 	// rl.DrawRectangle(int32(p.X), int32(p.Y), int32(p.W), int32(p.H), rl.Green);
 }
 
