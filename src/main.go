@@ -37,6 +37,10 @@ func main() {
 	player.H = 50
 	player.AreaX = 1
 	player.AreaY = 1
+	player.Image = rl.LoadImage("static/imgs/seal-king.png")
+	rl.ImageResize(player.Image, 200, 200)
+	player.Texture = rl.LoadTextureFromImage(player.Image)
+	rl.UnloadImage(player.Image)
 
 	rl.InitWindow(int32(window.Width), int32(window.Height), "Fun with go")
 	defer rl.CloseWindow()
@@ -44,8 +48,6 @@ func main() {
 	rl.SetTargetFPS(60)
 
 	for !rl.WindowShouldClose() {
-		x, y := player.GetPos()
-
 		if (rl.IsKeyDown(rl.KeyRight) || rl.IsKeyDown(rl.KeyD)) {
 			moveX += MOVE_SPEED;
 		}
@@ -67,7 +69,8 @@ func main() {
 		rl.BeginDrawing()
 
 		rl.ClearBackground(rl.Black)
-		rl.DrawRectangle(int32(x), int32(y), int32(player.W), int32(player.H), rl.Green);
+		
+		player.Render()
 
 		text := fmt.Sprintf("Area x: %v y: %v", player.AreaX, player.AreaY)
 

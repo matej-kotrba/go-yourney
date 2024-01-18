@@ -3,15 +3,25 @@ package player
 import (
 	"math"
 
+	rl "github.com/gen2brain/raylib-go/raylib"
 	ga "github.com/matej-kotrba/go-testing/src/game"
 )
 
+// playerImage = rl.
+
 type Player struct {
 	Name  string
+	Image *rl.Image
+	Texture rl.Texture2D
 	X, Y  float32
 	W, H  int16
 	AreaX int8
 	AreaY int8
+}
+
+func (p *Player) Render() {
+	// rl.DrawTexture(p.Texture, int32(p.X), int32(p.Y), rl.White)
+	// rl.DrawRectangle(int32(p.X), int32(p.Y), int32(p.W), int32(p.H), rl.Green);
 }
 
 func (p Player) GetPos() (float32, float32) {
