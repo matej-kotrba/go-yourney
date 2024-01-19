@@ -71,7 +71,19 @@ func main() {
 		if (rl.IsMouseButtonDown(rl.MouseLeftButton)) {
 			if (!draw.IsDrawing) {
 				draw.IsDrawing = true
-				draw.DrawedPattern = append(draw.DrawedPattern, m.DrawPoint{X: int16(rl.GetMouseX()), Y: int16(rl.GetMouseY())})
+				draw.DrawedPattern = append(draw.DrawedPattern, rl.NewVector2(float32(rl.GetMouseX()), float32(rl.GetMouseY())))
+			}
+			if (draw.IsDrawing) {	
+				draw.DrawedPattern = append(draw.DrawedPattern, rl.NewVector2(float32(rl.GetMouseX()), float32(rl.GetMouseY())))
+			}
+		}
+
+		// On mouse up
+		if (rl.IsMouseButtonReleased(rl.MouseLeftButton)) {
+			if (draw.IsDrawing) {
+				draw.IsDrawing = false
+				draw.GetVectors()
+				draw.ClearPattern()
 			}
 		}
 
@@ -83,9 +95,12 @@ func main() {
 		rl.BeginDrawing()
 
 		rl.ClearBackground(rl.Black)
-		
-		player.Render()
 
+		// Rendering process
+		draw.DrawPattern()
+
+		player.Render()
+	
 		text := fmt.Sprintf("Area x: %v y: %v", player.AreaX, player.AreaY)
 
 		rl.DrawText(text, 10, 10, 20, rl.White);

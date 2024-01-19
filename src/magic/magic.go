@@ -1,7 +1,13 @@
 package magic
 
+import (
+	"math"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
+
 type SpellPattern struct {
-	grid [9][9]bool
+	condition func(vectors []rl.Vector2) bool
 }
 
 type Spell struct {
@@ -10,20 +16,29 @@ type Spell struct {
 	castY   int16
 }
 
-var Patterns = map[string]Spell{
+var Patterns = map[string]SpellPattern{
+	// "v" shape
 	"projectile": {
-		pattern: SpellPattern{
-			grid: [9][9]bool{
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-				{false, false, false, false, true, false, false, false, false},
-			},
+		condition: func(vectors []rl.Vector2) bool {
+			const tresholdY = 20
+			const tresholdMinX = 20
+			const tresholdMaxX = 100
+			
+			endX := float32(0)
+			endY := float32(0)
+
+			for i := 0; i < len(vectors); i++ {
+				endX += vectors[i].X
+				endY += vectors[i].Y
+			}
+
+			if (math.Abs(float64(endY)) > tresholdY) {
+				return false
+			}
+
+			// if (math.Abs(float64(endX)) > tresholdMaxX && math.Abs(float64(endX) < tresholdMinX)) {
+			// 	return false
+			// }
 		},
 	},
 }
