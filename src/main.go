@@ -82,8 +82,10 @@ func main() {
 		if (rl.IsMouseButtonReleased(rl.MouseLeftButton)) {
 			if (draw.IsDrawing) {
 				draw.IsDrawing = false
-				draw.GetVectors()
+				vectors := draw.GetVectors()
 				draw.ClearPattern()
+				result := m.Patterns["projectile"].Condition(vectors)
+				fmt.Printf("%v", result)
 			}
 		}
 
