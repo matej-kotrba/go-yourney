@@ -5,6 +5,6 @@ type Destination struct {
 	Y float32
 }
 
-type SpellTemplate interface {
+type Spell interface {
 	spawn()
 }

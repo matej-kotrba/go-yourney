@@ -83,9 +83,8 @@ func main() {
 			if (draw.IsDrawing) {
 				draw.IsDrawing = false
 				vectors := draw.GetVectors()
-				draw.ClearPattern()
-				result := m.Patterns["projectile"].Condition(vectors)
-				fmt.Printf("%v", result)
+				draw.UsePattern(vectors)
+				
 			}
 		}
 

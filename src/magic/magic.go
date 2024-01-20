@@ -9,12 +9,7 @@ import (
 
 type SpellPattern struct {
 	Condition func(vectors []rl.Vector2) bool
-}
-
-type Spell struct {
-	pattern SpellPattern
-	castX   int16
-	castY   int16
+	OnPass func()
 }
 
 var Patterns = map[string]SpellPattern{
@@ -70,11 +65,16 @@ var Patterns = map[string]SpellPattern{
 
 			return true
 		},
+		OnPass: func () {
+			
+		},
 	},
 }
 
-func EvaluateSpell([]struct {
-	x int16
-	y int16
-}) {
+func MatchSpellPattern(vectors []rl.Vector2) {
+	for _, v := range Patterns {
+		if (v.Condition(vectors)) {
+		}
+	}
+
 }

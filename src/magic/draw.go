@@ -1,6 +1,8 @@
 package magic
 
 import (
+	"fmt"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -17,7 +19,9 @@ func (d *Draw) DrawPattern() {
 	}
 }
 
-func (d *Draw) ClearPattern() {
+func (d *Draw) UsePattern(vectors []rl.Vector2) {
+	result := Patterns["projectile"].Condition(vectors)
+				fmt.Printf("%v", result)
 	d.DrawedPattern = d.DrawedPattern[:0]
 }
 
