@@ -6,5 +6,9 @@ type Destination struct {
 }
 
 type Spell interface {
-	spawn()
+	New(Destination, Destination)
+	Move()
+	Render()
 }
+
+var Projectiles = make([]Spell, 100)

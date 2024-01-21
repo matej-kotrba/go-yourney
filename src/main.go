@@ -7,6 +7,7 @@ import (
 	g "github.com/matej-kotrba/go-testing/src/game"
 	m "github.com/matej-kotrba/go-testing/src/magic"
 	p "github.com/matej-kotrba/go-testing/src/player"
+	s "github.com/matej-kotrba/go-testing/src/spells"
 )
 
 var window g.Window = g.Window{
@@ -90,6 +91,10 @@ func main() {
 
 		player.Move(gameAreas, window, float32(moveX), float32(moveY))
 
+		for _, v := range s.Projectiles {
+			v.Move()
+		}
+
 		moveX = 0
 		moveY = 0
 
@@ -102,6 +107,10 @@ func main() {
 
 		player.Render()
 	
+		for _, v := range s.Projectiles {
+			v.Render()
+		}
+
 		text := fmt.Sprintf("Area x: %v y: %v", player.AreaX, player.AreaY)
 
 		rl.DrawText(text, 10, 10, 20, rl.White);

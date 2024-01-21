@@ -74,6 +74,7 @@ var Patterns = map[string]SpellPattern{
 func MatchSpellPattern(vectors []rl.Vector2) {
 	for _, v := range Patterns {
 		if (v.Condition(vectors)) {
+			v.OnPass()
 		}
 	}
 
