@@ -82,18 +82,19 @@ func main() {
 		// On mouse up
 		if (rl.IsMouseButtonReleased(rl.MouseLeftButton)) {
 			if (draw.IsDrawing) {
+				dest := rl.GetMousePosition()
 				draw.IsDrawing = false
 				vectors := draw.GetVectors()
-				draw.UsePattern(vectors)
+				draw.UsePattern(vectors, s.Destination{X: player.X, Y: player.Y}, s.Destination{X: dest.X, Y: dest.Y})
 				
 			}
 		}
 
 		player.Move(gameAreas, window, float32(moveX), float32(moveY))
 
-		for _, v := range s.Projectiles {
-			v.Move()
-		}
+		// for _, v := range s.Projectiles {
+		// 	// v.Move()
+		// }
 
 		moveX = 0
 		moveY = 0
@@ -107,9 +108,9 @@ func main() {
 
 		player.Render()
 	
-		for _, v := range s.Projectiles {
-			v.Render()
-		}
+		// for _, v := range s.Projectiles {
+		// 	v.Render()
+		// }
 
 		text := fmt.Sprintf("Area x: %v y: %v", player.AreaX, player.AreaY)
 

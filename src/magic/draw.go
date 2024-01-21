@@ -1,9 +1,8 @@
 package magic
 
 import (
-	"fmt"
-
 	rl "github.com/gen2brain/raylib-go/raylib"
+	s "github.com/matej-kotrba/go-testing/src/spells"
 )
 
 type Draw struct {
@@ -19,9 +18,10 @@ func (d *Draw) DrawPattern() {
 	}
 }
 
-func (d *Draw) UsePattern(vectors []rl.Vector2) {
-	result := Patterns["projectile"].Condition(vectors)
-				fmt.Printf("%v", result)
+func (d *Draw) UsePattern(vectors []rl.Vector2, castPos s.Destination, destPos s.Destination) {
+	MatchSpellPattern(vectors, castPos, destPos)
+	// result := Patterns["projectile"].Condition(vectors)
+	// 			fmt.Printf("%v", result)
 	d.DrawedPattern = d.DrawedPattern[:0]
 }
 

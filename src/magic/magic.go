@@ -5,11 +5,12 @@ import (
 	"math"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
+	s "github.com/matej-kotrba/go-testing/src/spells"
 )
 
 type SpellPattern struct {
 	Condition func(vectors []rl.Vector2) bool
-	OnPass func()
+	OnPass func(castPosition s.Destination, finalPosition s.Destination)
 }
 
 var Patterns = map[string]SpellPattern{
@@ -65,16 +66,16 @@ var Patterns = map[string]SpellPattern{
 
 			return true
 		},
-		OnPass: func () {
-			
+		OnPass: func (castPos s.Destination, endPos s.Destination) {
+			s.NewFireball(castPos, endPos)
 		},
 	},
 }
 
-func MatchSpellPattern(vectors []rl.Vector2) {
+func MatchSpellPattern(vectors []rl.Vector2, castPos s.Destination, endPos s.Destination) {
 	for _, v := range Patterns {
 		if (v.Condition(vectors)) {
-			v.OnPass()
+			v.OnPass(castPos, endPos)
 		}
 	}
 

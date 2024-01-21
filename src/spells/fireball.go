@@ -13,15 +13,16 @@ type Fireball struct {
 	Y  float32
 	SX float32
 	SY float32
-	W int16
-	H int16
+	R int16
 	image rl.Image
 	texture rl.Texture2D
 }
 
-func (f *Fireball) New(spawnDest Destination, dest Destination) {
+func NewFireball(spawnDest Destination, dest Destination) {
+	f := new(Fireball)
+
 	f.image = *rl.LoadImage("static/imgs/spells/fireball.png")
-	rl.ImageResize(&f.image, int32(f.W), int32(f.H))
+	rl.ImageResize(&f.image, int32(f.R) * 2, int32(f.R) * 2)
 	f.texture = rl.LoadTextureFromImage(&f.image)
 
 	xLine := spawnDest.X - dest.X
@@ -42,6 +43,6 @@ func (f *Fireball) Move() {
 }
 
 func (f *Fireball) Render() {
-	rl.ImageResize(&f.image, int32(f.W), int32(f.H))
+	rl.ImageResize(&f.image, int32(f.R * 2), int32(f.R * 2))
 	rl.DrawTexture(f.texture, int32(f.X), int32(f.Y), rl.White)
 }

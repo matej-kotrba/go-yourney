@@ -6,7 +6,6 @@ type Destination struct {
 }
 
 type Spell interface {
-	New(Destination, Destination)
 	Move()
 	Render()
 }
