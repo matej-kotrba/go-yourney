@@ -92,9 +92,11 @@ func main() {
 
 		player.Move(gameAreas, window, float32(moveX), float32(moveY))
 
-		// for _, v := range s.Projectiles {
-		// 	// v.Move()
-		// }
+		for _, v := range s.Projectiles {
+			if (v != nil) {
+				v.Move()
+			}
+		}
 
 		moveX = 0
 		moveY = 0
@@ -108,9 +110,11 @@ func main() {
 
 		player.Render()
 	
-		// for _, v := range s.Projectiles {
-		// 	v.Render()
-		// }
+		for _, v := range s.Projectiles {
+			if (v != nil) {
+				v.Render()
+			}
+		}
 
 		text := fmt.Sprintf("Area x: %v y: %v", player.AreaX, player.AreaY)
 
