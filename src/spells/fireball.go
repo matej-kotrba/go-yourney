@@ -5,6 +5,7 @@ import (
 	"math"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
+	g "github.com/matej-kotrba/go-testing/src/game"
 )
 
 const speed = 5
@@ -22,7 +23,7 @@ type Fireball struct {
 func NewFireball(spawnDest Destination, dest Destination) {
 	f := new(Fireball)
 
-	f.R = 100
+	f.R = 30
 
 	f.image = *rl.LoadImage("static/imgs/spells/fireball.png")
 	rl.ImageResize(&f.image, int32(f.R) * 2, int32(f.R) * 2)
@@ -43,6 +44,10 @@ func NewFireball(spawnDest Destination, dest Destination) {
 func (f *Fireball) Move() {
 	f.X += f.SX * speed
 	f.Y += f.SY * speed
+}
+
+func (f *Fireball) ShouldBeDeleted() bool {
+	return f.X - float32(f.R) >= g.WINDOW_WIDTH || f.X + float32(f.R) <= 0 || f.Y - float32(f.R) >= g.WINDOW_HEIGHT || f.Y + float32(f.R) <= 0
 }
 
 func (f *Fireball) Render() {

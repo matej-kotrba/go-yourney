@@ -11,8 +11,8 @@ import (
 )
 
 var window g.Window = g.Window{
-	Width:  800,
-	Height: 450,
+	Width:  g.WINDOW_WIDTH,
+	Height: g.WINDOW_HEIGHT,
 }
 
 const MOVE_SPEED = 10
@@ -92,10 +92,19 @@ func main() {
 
 		player.Move(gameAreas, window, float32(moveX), float32(moveY))
 
-		for _, v := range s.Projectiles {
+		shouldRemoveProjectileIndexes := make([]int, 0, 10)
+
+		for i, v := range s.Projectiles {
 			if (v != nil) {
 				v.Move()
+				if (v.ShouldBeDeleted()) {
+					shouldRemoveProjectileIndexes = append(shouldRemoveProjectileIndexes, i)
+				}
 			}
+		}
+
+		for _, v := range shouldRemoveProjectileIndexes {
+			s.Projectiles = append(s.Projectiles[:v], s.Projectiles[v+1:]...)
 		}
 
 		moveX = 0

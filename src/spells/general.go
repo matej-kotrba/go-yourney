@@ -8,6 +8,7 @@ type Destination struct {
 type Spell interface {
 	Move()
 	Render()
+	ShouldBeDeleted() bool
 }
 
 var Projectiles = make([]Spell, 100)
