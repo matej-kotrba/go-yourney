@@ -1,7 +1,6 @@
 package spells
 
 import (
-	"fmt"
 	"math"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -51,7 +50,6 @@ func (f *Fireball) ShouldBeDeleted() bool {
 }
 
 func (f *Fireball) Render() {
-	fmt.Printf(" (%v, %v) ", f.X, f.Y)
 	rl.ImageResize(&f.image, int32(f.R * 2), int32(f.R * 2))
 	rl.DrawTexture(f.texture, int32(f.X), int32(f.Y), rl.White)
 }
