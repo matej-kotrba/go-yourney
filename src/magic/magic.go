@@ -105,6 +105,8 @@ var Patterns = map[string]SpellPattern{
 						lineX := float32(newLineXTotal) / (float32(i) - float32(newLineStartIndex))
 						lineY := float32(newLineYTotal) / (float32(i) - float32(newLineStartIndex))
 
+						fmt.Printf("X %v, Y %v \n", lineX, lineY)
+
 						if (math.IsNaN(float64(lineX)) || math.IsInf(float64(lineX), 0)) {
 							lineX = 0
 						}
